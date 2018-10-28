@@ -1,0 +1,25 @@
+h1 {
+  color: Navy;
+}
+
+img {
+  border:2px solid Navy;
+}
+
+body {
+  background-color: LightGrey;
+}
+
+.sale {
+  color: Red;
+}
+
+.color-box {
+  width: 40px;
+  height: 40px;
+  maegin-top: 5px;
+}
+
+.line-thru {
+  text-decoration: line-through;
+}
