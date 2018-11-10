@@ -6,7 +6,7 @@ var app = new Vue({
     image: './assets/dog.jpg',
     link: 'https://www.google.com',
     inventory: 20,
-    onSale: false,
+    onSale: true,
     details: ["80% cotton", "20% polyester", "Gender-neutral"],
     variants: [
       {
