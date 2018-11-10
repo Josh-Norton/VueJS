@@ -1,23 +1,25 @@
 var app = new Vue({
   el: '#app',
   data: {
+    brand: 'Vue Mastery',
     product: 'Socks',
     description: 'These are some nice socks',
-    image: './assets/dog.jpg',
+    selectedVariant: 0,
     link: 'https://www.google.com',
-    inventory: 20,
     onSale: true,
     details: ["80% cotton", "20% polyester", "Gender-neutral"],
     variants: [
       {
         variantId: 2234,
         variantColor: "Green",
-        variantImage: "./assets/dog.jpg"
+        variantImage: "./assets/dog.jpg",
+        variantQuantity: 10
       },
       {
         variantId: 2235,
         variantColor: "Blue",
-        variantImage: "./assets/dog2.jpg"
+        variantImage: "./assets/dog2.jpg",
+        variantQuantity: 10
       }
     ],
     sizes: ["Small", "Medium", "Large"],
@@ -26,14 +28,30 @@ var app = new Vue({
   methods: {
     addToCart: function () {
       this.cart++;
-      this.inventory--;
+      this.variants[this.selectedVariant].variantQuantity--;
     },
     removeFromCart: function () {
       this.cart--;
-      this.inventory++;
+      this.variants[this.selectedVariant].variantQuantity++;
     },
-    updateProduct: function (variantImage) {
-      this.image = variantImage;
+    updateProduct: function (index) {
+      this.selectedVariant = index;
+    }
+  },
+  computed: {
+    title() {
+      return this.brand + " " + this.product;
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage;
+    },
+    inventory() {
+      return this.variants[this.selectedVariant].variantQuantity;
+    },
+    saleMessage() {
+      if (this.onSale) {
+        return "Sale on " + this.product + " from " + this.brand + '!!!';
+      }
     }
   }
 });
