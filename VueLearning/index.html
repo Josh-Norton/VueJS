@@ -13,47 +13,7 @@
 </div>
 
     <div class="" id="app">
-      <div class="product">
-
-        <div class="product-image">
-          <img :src="image" alt="">
-        </div>
-
-        <div class="product-info">
-          <h1 :class="{'line-thru': !inventory > 0}">{{title}}</h1>
-          <p class="sale">{{saleMessage}}</p>
-          <p>{{description}}</p>
-          <p v-if="inventory > 10">In Stock</p>
-          <p v-else-if="inventory > 0">Almost sold out!</p>
-          <p v-else>Out of Stock</p>
-
-          <ul>
-            <li v-for="detail in details">{{detail}}</li>
-          </ul>
-
-          <p>Sizes:</p>
-          <ul>
-            <li v-for="size in sizes">{{size}}</li>
-          </ul>
-
-          <div v-for="(variant, index) in variants"
-               :key="variant.variantId"
-               class="color-box"
-               :style = "{backgroundColor: variant.variantColor}"
-               @mouseover="updateProduct(index)">
-          </div>
-
-          <button v-on:click="addToCart" :disabled="!inventory > 0" :class="{disabledButton: !inventory > 0}">Add to Cart</button>
-          <button v-on:click="removeFromCart" :disabled="!cart > 0" :class="{disabledButton: !cart > 0}">Remove</button>
-
-          <div class="cart">
-            <p>Cart({{cart}})</p>
-          </div>
-
-          <p>Check <a :href="link">this</a> out</p>
-        </div>
-
-      </div>
+      <product :premium="premium"></product>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
