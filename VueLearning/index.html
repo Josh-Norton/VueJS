@@ -13,7 +13,11 @@
 </div>
 
     <div class="" id="app">
-      <product :premium="premium"></product>
+      <div class="cart">
+        <p>Cart({{cart}})</p>
+      </div>
+
+      <product :premium="premium" :cart-empty="!cart > 0" @add-to-cart="addToCart" @remove-from-cart="removeFromCart"></product>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>

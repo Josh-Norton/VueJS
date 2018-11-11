@@ -3,6 +3,11 @@ Vue.component('product' , {
     premium: {
       type: Boolean,
       required: true
+    },
+    cartEmpty: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   template: `
@@ -40,11 +45,7 @@ Vue.component('product' , {
       </div>
 
       <button v-on:click="addToCart" :disabled="!inventory > 0" :class="{disabledButton: !inventory > 0}">Add to Cart</button>
-      <button v-on:click="removeFromCart" :disabled="!cart > 0" :class="{disabledButton: !cart > 0}">Remove</button>
-
-      <div class="cart">
-        <p>Cart({{cart}})</p>
-      </div>
+      <button v-on:click="removeFromCart" :disabled="cartEmpty" :class="{disabledButton: cartEmpty}">Remove</button>
 
       <p>Check <a :href="link">this</a> out</p>
     </div>
@@ -74,18 +75,17 @@ Vue.component('product' , {
           variantQuantity: 10
         }
       ],
-      sizes: ["Small", "Medium", "Large"],
-      cart: 0
+      sizes: ["Small", "Medium", "Large"]
     }
   },
   methods: {
     addToCart: function () {
-      this.cart++;
       this.variants[this.selectedVariant].variantQuantity--;
+      this.$emit('add-to-cart');
     },
     removeFromCart: function () {
-      this.cart--;
       this.variants[this.selectedVariant].variantQuantity++;
+      this.$emit('remove-from-cart');
     },
     updateProduct: function (index) {
       this.selectedVariant = index;
@@ -134,6 +134,15 @@ Vue.component('productDetails' , {
 var app = new Vue({
   el: '#app',
   data: {
-    premium: true
+    premium: true,
+    cart: 0
+  },
+  methods: {
+    addToCart() {
+      this.cart++;
+    },
+    removeFromCart() {
+      this.cart--;
+    }
   }
 });
