@@ -17,7 +17,13 @@
         <p>Cart({{cart.length}})</p>
       </div>
 
-      <product :premium="premium" :cart-empty="!cart.length > 0" @add-to-cart="addToCart" @remove-from-cart="removeFromCart"></product>
+      <product
+        :premium="premium"
+        :in-cart="cartContainsProduct"
+        @add-to-cart="addToCart"
+        @remove-from-cart="removeFromCart"
+        @update-selection="updateSelection"
+      ></product>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>

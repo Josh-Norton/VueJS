@@ -4,10 +4,9 @@ Vue.component('product' , {
       type: Boolean,
       required: true
     },
-    cartEmpty: {
+    inCart: {
       type: Boolean,
-      required: true,
-      default: true
+      required: true
     }
   },
   template: `
@@ -45,7 +44,7 @@ Vue.component('product' , {
       </div>
 
       <button v-on:click="addToCart" :disabled="!inventory > 0" :class="{disabledButton: !inventory > 0}">Add to Cart</button>
-      <button v-on:click="removeFromCart" :disabled="cartEmpty" :class="{disabledButton: cartEmpty}">Remove</button>
+      <button v-on:click="removeFromCart" :disabled="!inCart" :class="{disabledButton: !inCart}">Remove</button>
 
       <p>Check <a :href="link">this</a> out</p>
     </div>
@@ -89,6 +88,7 @@ Vue.component('product' , {
     },
     updateProduct: function (index) {
       this.selectedVariant = index;
+      this.$emit('update-selection', this.variants[this.selectedVariant].variantId);
     }
   },
   computed: {
@@ -135,7 +135,8 @@ var app = new Vue({
   el: '#app',
   data: {
     premium: true,
-    cart: []
+    cart: [],
+    currentId: 2234
   },
   methods: {
     addToCart(id) {
@@ -143,6 +144,14 @@ var app = new Vue({
     },
     removeFromCart(id) {
       this.cart.splice(this.cart.indexOf(id), 1);
+    },
+    updateSelection(id) {
+      this.currentId = id;
+    }
+  },
+  computed: {
+    cartContainsProduct() {
+      return this.cart.includes(this.currentId);
     }
   }
 });
